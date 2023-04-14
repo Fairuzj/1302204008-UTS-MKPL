@@ -15,7 +15,8 @@ public class Job extends Family{
         public LocalDate joinDate;
 	public int monthWorkingInYear;
 	public boolean isForeigner;
-
+        public int grade;
+        
     public LocalDate getJoinDate() {
         return joinDate;
     }
@@ -38,6 +39,14 @@ public class Job extends Family{
 
     public void setIsForeigner(boolean isForeigner) {
         this.isForeigner = isForeigner;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
         
 
