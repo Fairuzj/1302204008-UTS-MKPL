@@ -31,26 +31,32 @@ public class Employee extends PersonalInfo{
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
 	
-	public void setMonthlySalary(Job job) {	
+        public void setMonthlySalary(Job job) {
             int grade = job.getGrade();
-		if (grade == 1) {
-			monthlySalary = 3000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}else if (grade == 2) {
-			monthlySalary = 5000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}else if (grade == 3) {
-			monthlySalary = 7000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}
-	}
-	
+            int baseSalary = getBaseSalary(grade);
+            monthlySalary = calculateSalary(baseSalary);
+        }
+
+        private int getBaseSalary(int grade) {
+            switch (grade) {
+                case 1:
+                    return 3000000;
+                case 2:
+                    return 5000000;
+                case 3:
+                    return 7000000;
+                default:
+                    return 0;
+            }
+        }
+
+        private int calculateSalary(int baseSalary) {
+            if (isForeigner) {
+                return (int) (baseSalary * 1.5);
+            } else {
+                return baseSalary;
+            }
+        }	
 	public void setAnnualDeductible(int deductible) {	
 		this.annualDeductible = deductible;
 	}
@@ -63,6 +69,11 @@ public class Employee extends PersonalInfo{
 	public int getAnnualIncomeTax() {
 		
 		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
+		int annualWorkRecap = annualRecap();
+                boolean isMarried = spouseIdNumber != 0;
+		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, annualWorkRecap, annualDeductible, isMarried, childIdNumbers.size());
+	}
+        public int annualRecap(){
 		LocalDate date = LocalDate.now();
 		
 		if (date.getYear() == joinDate.getYear()) {
@@ -70,8 +81,7 @@ public class Employee extends PersonalInfo{
 		}else {
 			monthWorkingInYear = 12;
 		}
-		
-                boolean ismarried = spouseIdNumber != 0;
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, ismarried, childIdNumbers.size());
-	}
+            return monthWorkingInYear;
+            
+        }
 }
