@@ -1,9 +1,6 @@
 package lib;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Employee extends PersonalInfo{
 
@@ -27,7 +24,10 @@ public class Employee extends PersonalInfo{
 	}
 	
 	/**
-	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
+	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya 
+         * grade 1: 3.000.000 per bulan,
+         * grade 2: 5.000.000 per bulan,
+         * grade 3: 7.000.000 per bulan,
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
 	
@@ -36,7 +36,7 @@ public class Employee extends PersonalInfo{
             int baseSalary = getBaseSalary(grade);
             monthlySalary = calculateSalary(baseSalary);
         }
-
+        
         private int getBaseSalary(int grade) {
             switch (grade) {
                 case 1:
@@ -57,7 +57,8 @@ public class Employee extends PersonalInfo{
                 return baseSalary;
             }
         }	
-	public void setAnnualDeductible(int deductible) {	
+
+        public void setAnnualDeductible(int deductible) {	
 		this.annualDeductible = deductible;
 	}
 	
@@ -68,11 +69,11 @@ public class Employee extends PersonalInfo{
 	
 	public int getAnnualIncomeTax() {
 		
-		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
 		int annualWorkRecap = annualRecap();
                 boolean isMarried = spouseIdNumber != 0;
 		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, annualWorkRecap, annualDeductible, isMarried, childIdNumbers.size());
 	}
+        
         public int annualRecap(){
 		LocalDate date = LocalDate.now();
 		
@@ -81,7 +82,6 @@ public class Employee extends PersonalInfo{
 		}else {
 			monthWorkingInYear = 12;
 		}
-            return monthWorkingInYear;
-            
+            return monthWorkingInYear;   
         }
 }
