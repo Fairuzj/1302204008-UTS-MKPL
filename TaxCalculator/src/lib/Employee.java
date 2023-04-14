@@ -19,7 +19,7 @@ public class Employee extends PersonalInfo{
 		this.lastName = lastName;
 		this.idNumber = idNumber;
 		this.address = address;
-                this.joinDate = joinDate;
+    this.joinDate = joinDate;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
 		
