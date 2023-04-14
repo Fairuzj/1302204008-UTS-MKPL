@@ -13,18 +13,17 @@ public class Employee extends PersonalInfo{
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 		
-	public Employee(int employeeId, String firstName, String lastName, int idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Gender gender) {
+	public Employee(int employeeId, PersonalInfo info, Job job) {
 		this.employeeId = employeeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idNumber = idNumber;
-		this.address = address;
-    this.joinDate = joinDate;
-		this.isForeigner = isForeigner;
-		this.gender = gender;
-		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
+		this.setFirstName(info.getFirstName());
+		this.setLastName(info.getLastName());
+		this.setIdNumber(info.getIdNumber());
+		this.setAddress(info.getAddress());
+                this.setJoinDate(info.getJoinDate());
+		this.setIsForeigner(info.getIsForeigner());
+		this.setGender(info.getGender());
+                this.setChildNames(info.getChildNames());
+		this.setChildIdNumbers(info.getChildIdNumbers());
 	}
 	
 	/**
@@ -32,7 +31,8 @@ public class Employee extends PersonalInfo{
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
 	
-	public void setMonthlySalary(int grade) {	
+	public void setMonthlySalary(Job job) {	
+            int grade = job.getGrade();
 		if (grade == 1) {
 			monthlySalary = 3000000;
 			if (isForeigner) {
